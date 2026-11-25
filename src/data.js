@@ -42,28 +42,5 @@ export const PROJECTS = [
     repo: "https://gitlab.com/provencat/dawbio/project/25/g2",
     imagen: "/Mutinsight.png",
   },
-  {
-    slug: "proyecto-dos",
-    title: "Nombre del proyecto",
-    año: "2024",
-    rol: "Desarrollador Frontend",
-    description: "Breve descripción del problema que resuelve y tu rol en el desarrollo.",
-    descripcionLarga:
-      "Descripción más detallada: qué problema real resolvía, qué decisiones técnicas tomaste y qué resultado obtuvo el cliente o usuario final.",
-    stack: ["Next.js", "Tailwind", "Stripe"],
-    demo: "#",
-    repo: "#",
-  },
-  {
-    slug: "proyecto-tres",
-    title: "Nombre del proyecto",
-    año: "2024",
-    rol: "Desarrollador Full Stack",
-    description: "Breve descripción del problema que resuelve y tu rol en el desarrollo.",
-    descripcionLarga:
-      "Descripción más detallada: qué problema real resolvía, qué decisiones técnicas tomaste y qué resultado obtuvo el cliente o usuario final.",
-    stack: ["React", "Express", "MongoDB"],
-    demo: "#",
-    repo: "#",
-  },
+  
 ];

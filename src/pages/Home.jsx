@@ -49,7 +49,7 @@ function Hero() {
           className="break-words text-4xl font-extrabold leading-[1.1] tracking-tight text-[#e4e8f1] md:text-[2.6rem] lg:text-5xl"
           style={HEADING}
         >
-          Desarrollo web con una base sólida, ahora especializándome en IA y big data.
+          Desarrollo web full stack especializándome en IA y big data.
         </h1>
         <p className="mt-6 max-w-md text-base leading-relaxed text-[#5D6470]">{PERFIL.bio}</p>
         <div className="mt-9 flex flex-wrap gap-3">
