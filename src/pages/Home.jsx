@@ -61,7 +61,7 @@ function Hero() {
           </Link>
           <Link
             to="/contacto"
-            className="rounded-full border-2 border-[#1B1F2A] px-6 py-3 text-sm font-semibold text-[#1B1F2A] transition-colors hover:bg-[#1B1F2A] hover:text-[#F4F5F0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3B3BF0]"
+            className="rounded-full border-2 border-[#1B1F2A] px-6 py-3 text-sm font-semibold text-[#ffffff] transition-colors hover:bg-[#1B1F2A] hover:text-[#F4F5F0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3B3BF0]"
           >
             Contactar
           </Link>
