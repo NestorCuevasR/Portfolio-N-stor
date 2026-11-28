@@ -16,12 +16,23 @@ import { PERFIL, SKILLS, PROJECTS } from "../data";
 
 const HEADING = { fontFamily: "'Bricolage Grotesque', sans-serif" };
 
+// Colores de sintaxis (c = comentario, k = palabra clave, p = propiedad, s = string, v = valor)
+const TOKEN_COLORS = {
+  c: "text-[#7E8599] italic",
+  k: "text-[#FF7AB6]",
+  p: "text-[#FFB86B]",
+  s: "text-[#5EDB97]",
+  v: "text-[#8E9BFF]",
+  t: "text-[#EDEFF5]",
+};
+
+// Cada línea es una lista de [tipo, texto]
 const CODE_LINES = [
-  "const perfil = {",
-  `  nombre: "Néstor Cuevas Romero",`,
-  `  rol: "${PERFIL.rol}",`,
-  "  disponible: true,",
-  "};",
+  [["k", "const "], ["t", "perfil = {"]],
+  [["t", "  "], ["p", "nombre"], ["t", ": "], ["s", '"Néstor Cuevas Romero"'], ["t", ","]],
+  [["t", "  "], ["p", "rol"], ["t", ": "], ["s", `"${PERFIL.rol}"`], ["t", ","]],
+  [["t", "  "], ["p", "disponible"], ["t", ": "], ["v", "true"], ["t", ","]],
+  [["t", "};"]],
 ];
 
 function Hero() {
@@ -29,9 +40,11 @@ function Hero() {
 
   useEffect(() => {
     if (visibleLines >= CODE_LINES.length) return;
-    const timer = setTimeout(() => setVisibleLines((n) => n + 1), 220);
+    const timer = setTimeout(() => setVisibleLines((n) => n + 1), 260);
     return () => clearTimeout(timer);
   }, [visibleLines]);
+
+  const typing = visibleLines < CODE_LINES.length;
 
   return (
     <header className="mx-auto grid max-w-5xl gap-14 px-6 pb-20 pt-28 md:grid-cols-2 md:gap-16 md:items-center md:pt-36">
@@ -68,26 +81,50 @@ function Hero() {
         </div>
       </div>
 
-      <div className="min-w-0 rounded-2xl border-2 border-[#1B1F2A] bg-[#1B1F2A] shadow-[10px_10px_0_#3B3BF0]">
-        <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-3">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#FF7A7A]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#FFB86B]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#5EDB97]" />
-          <span className="ml-3 font-mono text-xs text-[#8D93A3]">perfil.js</span>
+      {/* Tarjeta de código: inclinada, con colores de sintaxis y brillo */}
+      <div className="relative min-w-0 md:pr-3">
+        <div
+          aria-hidden="true"
+          className="absolute -inset-6 -z-10 rounded-[2rem] bg-[#3B3BF0]/25 blur-3xl"
+        />
+
+        <div className="-rotate-2 rounded-2xl border-2 border-[#EDEFF5]/80 bg-[#1B1F2A] shadow-[10px_10px_0_#3B3BF0] transition-transform duration-300 hover:rotate-0">
+          <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-3">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#FF7A7A]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#FFB86B]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#5EDB97]" />
+            <span className="ml-3 font-mono text-xs text-[#8D93A3]">perfil.js</span>
+          </div>
+
+          <pre
+            className="overflow-x-auto p-5 font-mono text-[13px] leading-[1.8]"
+            style={{ minHeight: `${CODE_LINES.length * 1.8 * 13 + 40}px` }}
+          >
+            {CODE_LINES.slice(0, visibleLines).map((tokens, i) => (
+              <div key={i} className="flex">
+                <span className="mr-4 w-4 shrink-0 select-none text-right text-[#4B515C]">{i + 1}</span>
+                <span>
+                  {tokens.map(([type, text], j) => (
+                    <span key={j} className={TOKEN_COLORS[type]}>
+                      {text}
+                    </span>
+                  ))}
+                  {i === visibleLines - 1 && typing && (
+                    <span className="cursor-blink ml-0.5 inline-block h-3.5 w-1.5 translate-y-0.5 bg-[#FFB86B]" />
+                  )}
+                </span>
+              </div>
+            ))}
+            {!typing && (
+              <div className="flex">
+                <span className="mr-4 w-4 shrink-0 select-none text-right text-[#4B515C]">
+                  {CODE_LINES.length + 1}
+                </span>
+                <span className="cursor-blink inline-block h-3.5 w-1.5 translate-y-0.5 bg-[#FFB86B]" />
+              </div>
+            )}
+          </pre>
         </div>
-        <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-[#EDEFF5]">
-          {CODE_LINES.slice(0, visibleLines).map((line, i) => (
-            <div key={i}>
-              {line}
-              {i === visibleLines - 1 && visibleLines < CODE_LINES.length && (
-                <span className="cursor-blink ml-0.5 inline-block h-3.5 w-1.5 translate-y-0.5 bg-[#FFB86B]" />
-              )}
-            </div>
-          ))}
-          {visibleLines >= CODE_LINES.length && (
-            <span className="cursor-blink inline-block h-3.5 w-1.5 translate-y-0.5 bg-[#FFB86B]" />
-          )}
-        </pre>
       </div>
     </header>
   );
